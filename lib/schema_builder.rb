@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+git branch -M main# frozen_string_literal: true
 
 require_relative "schema_builder/version"
 
