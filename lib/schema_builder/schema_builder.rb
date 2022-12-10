@@ -1,8 +1,8 @@
 # json_schema.rb
 require 'json'
 
-# Define the JSONSchema class
-class JSONSchema
+# Define the SchemaBuilder class
+class SchemaBuilder
   # Initialize the class with the object and included fields
   def initialize(object, included)
     @object = object
@@ -36,7 +36,7 @@ class JSONSchema
           included_object = @included[item[:type]][item[:id]]
 
           # Generate a schema for the included object
-          JSONSchema.new(included_object, @included).generate
+          SchemaBuilder.new(included_object, @included).generate
         end
       else
         # Nested object - generate a schema for it
@@ -44,7 +44,7 @@ class JSONSchema
         included_object = @included[value[:data][:type]][value[:data][:id]]
 
         # Generate a schema for the included object
-        schema[:properties][property][:properties] = JSONSchema.new(included_object, @included).generate
+        schema[:properties][property][:properties] = SchemaBuilder.new(included_object, @included).generate
       end
 
       # Return the generated schema
@@ -53,8 +53,8 @@ class JSONSchema
   end
 end
 
-# # Define the JSONSchema gem module
-# module JSONSchema
+# # Define the SchemaBuilder gem module
+# module SchemaBuilder
 #   # Define the gem version
 #   VERSION = '1.0.0'
 
@@ -64,8 +64,8 @@ end
 #   # Define the gem lib directory
 #   LIB_DIR = File.join(ROOT_DIR, 'lib')
 
-#   # Load the JSONSchema class
-#   autoload :JSONSchema, File.join(LIB_DIR, 'json_schema')
+#   # Load the SchemaBuilder class
+#   autoload :SchemaBuilder, File.join(LIB_DIR, 'json_schema')
 
 #   # Define the gem bin directory
 #   BIN_DIR = File.join(ROOT_DIR, 'bin')
